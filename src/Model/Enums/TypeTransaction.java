@@ -1,4 +1,4 @@
-package banque.enums;
+package Model.Enums;
 
 public enum TypeTransaction {
     DEPOT,
