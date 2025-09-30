@@ -23,6 +23,9 @@ public class Compte {
     }
 
     // Getters
+    public UUID getNumeroCompte() {
+        return idCompte;
+    }
     public UUID getIdCompte() { return idCompte; }
     public TypeCompte getType() { return type; }
     public double getSolde() { return solde; }

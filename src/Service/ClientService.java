@@ -2,13 +2,38 @@ package Service;
 
 import Model.Client;
 import Model.Compte;
+import Model.Enums.TypeCompte;
 import Model.Transaction;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class ClientService {
+
+    public void ajouterCompte(Client client, Scanner scanner) {
+        System.out.println("=== Création d'un nouveau compte ===");
+        System.out.print("Type de compte (COURANT, EPARGNE, DEPOTATERME) : ");
+        String typeStr = scanner.nextLine();
+        TypeCompte type;
+        try {
+            type = TypeCompte.valueOf(typeStr.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            System.out.println("❌ Type de compte invalide !");
+            return;
+        }
+
+        System.out.print("Solde initial : ");
+        double soldeInitial = scanner.nextDouble();
+        scanner.nextLine();
+
+        // Création du compte et ajout au client
+        Compte nouveauCompte = new Compte(type, soldeInitial, client);
+        client.addCompte(nouveauCompte);
+
+        System.out.println("✅ Compte créé avec succès : " + nouveauCompte);
+    }
 
     // Consulter infos + comptes
     public void afficherInfosClient(Client client) {
@@ -33,7 +58,7 @@ public class ClientService {
     public List<Transaction> filtrerParType(Client client, String type) {
         return client.getComptes().stream()
                 .flatMap(c -> c.getTransactions().stream())
-                .filter(t -> t.getType().equalsIgnoreCase(type))
+                .filter(t -> t.getType().name().equalsIgnoreCase(type))
                 .collect(Collectors.toList());
     }
 
@@ -64,7 +89,7 @@ public class ClientService {
     public double totalDepots(Client client) {
         return client.getComptes().stream()
                 .flatMap(c -> c.getTransactions().stream())
-                .filter(t -> t.getType().equalsIgnoreCase("DEPOT"))
+                .filter(t -> t.getType().name().equalsIgnoreCase("DEPOT"))
                 .mapToDouble(Transaction::getMontant)
                 .sum();
     }
@@ -73,7 +98,7 @@ public class ClientService {
     public double totalRetraits(Client client) {
         return client.getComptes().stream()
                 .flatMap(c -> c.getTransactions().stream())
-                .filter(t -> t.getType().equalsIgnoreCase("RETRAIT"))
+                .filter(t -> t.getType().name().equalsIgnoreCase("RETRAIT"))
                 .mapToDouble(Transaction::getMontant)
                 .sum();
     }

@@ -23,16 +23,18 @@ public class ClientController {
     public void menuClient() {
         while (true) {
             System.out.println("\n===== MENU CLIENT =====");
-            System.out.println("1 - Voir mes informations et mes comptes");
-            System.out.println("2 - Déposer de l'argent");
-            System.out.println("3 - Retirer de l'argent");
-            System.out.println("4 - Faire un virement");
-            System.out.println("5 - Voir l’historique des transactions");
-            System.out.println("6 - Filtrer mes transactions");
-            System.out.println("7 - Trier mes transactions");
-            System.out.println("8 - Calculer mes soldes et totaux");
+            System.out.println("1 - Ajouter un compte");
+            System.out.println("2 - Voir mes informations et mes comptes");
+            System.out.println("3 - Déposer de l'argent");
+            System.out.println("4 - Retirer de l'argent");
+            System.out.println("5 - Faire un virement");
+            System.out.println("6 - Voir l’historique des transactions");
+            System.out.println("7 - Filtrer mes transactions");
+            System.out.println("8 - Trier mes transactions");
+            System.out.println("9 - Calculer mes soldes et totaux");
             System.out.println("0 - Déconnexion");
             System.out.print("Votre choix : ");
+
             int choix = scanner.nextInt();
             scanner.nextLine();
 
@@ -41,18 +43,20 @@ public class ClientController {
                     System.out.println("👋 Déconnexion réussie.");
                     return;
                 }
-                case 1 -> clientService.afficherInfosClient(client);
-                case 2 -> depotArgent();
-                case 3 -> retraitArgent();
-                case 4 -> virementEntreComptes();
-                case 5 -> clientService.afficherHistorique(client);
-                case 6 -> filtrerTransactions();
-                case 7 -> trierTransactions();
-                case 8 -> afficherTotaux();
+                case 1 -> clientService.ajouterCompte(client, scanner); // Nouvelle option
+                case 2 -> clientService.afficherInfosClient(client);
+                case 3 -> depotArgent();
+                case 4 -> retraitArgent();
+                case 5 -> virementEntreComptes();
+                case 6 -> clientService.afficherHistorique(client);
+                case 7 -> filtrerTransactions();
+                case 8 -> trierTransactions();
+                case 9 -> afficherTotaux();
                 default -> System.out.println("❌ Choix invalide !");
             }
         }
     }
+
 
     private void depotArgent() {
         Compte compte = choisirCompte();

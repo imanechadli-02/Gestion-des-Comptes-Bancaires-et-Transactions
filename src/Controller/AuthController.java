@@ -92,6 +92,7 @@ public class AuthController {
             if (personne instanceof Client client) {
                 ClientController clientController = new ClientController(client, authService);
                 clientController.menuClient();
+
             } else if (personne instanceof Gestionnaire gestionnaire) {
                 GestionnaireController gestionnaireController = new GestionnaireController(gestionnaire, authService);
                 gestionnaireController.menuGestionnaire();
