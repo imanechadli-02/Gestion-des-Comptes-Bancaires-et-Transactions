@@ -20,7 +20,7 @@ public class ClientController {
         this.scanner = new Scanner(System.in);
     }
 
-    public void menuClient() {
+    public boolean menuClient() {
         while (true) {
             System.out.println("\n===== MENU CLIENT =====");
             System.out.println("1 - Ajouter un compte");
@@ -41,9 +41,9 @@ public class ClientController {
             switch (choix) {
                 case 0 -> {
                     System.out.println("👋 Déconnexion réussie.");
-                    return;
+                    return true; // 🔥 renvoie un signal de déconnexion
                 }
-                case 1 -> clientService.ajouterCompte(client, scanner); // Nouvelle option
+                case 1 -> clientService.ajouterCompte(client, scanner);
                 case 2 -> clientService.afficherInfosClient(client);
                 case 3 -> depotArgent();
                 case 4 -> retraitArgent();
@@ -56,6 +56,7 @@ public class ClientController {
             }
         }
     }
+
 
 
     private void depotArgent() {

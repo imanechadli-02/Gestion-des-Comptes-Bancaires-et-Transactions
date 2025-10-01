@@ -21,7 +21,7 @@ public class AuthController {
     public Optional<Personne> menuAuth() {
         while (true) {
             System.out.println("\n===== MENU AUTHENTIFICATION =====");
-            System.out.println("1 - S'inscrire (Client)");
+            System.out.println("1 - S'inscrire (Client)"); 
             System.out.println("2 - S'inscrire (Gestionnaire)");
             System.out.println("3 - Se connecter");
             System.out.println("0 - Quitter");
@@ -91,16 +91,20 @@ public class AuthController {
 
             if (personne instanceof Client client) {
                 ClientController clientController = new ClientController(client, authService);
-                clientController.menuClient();
-
+                boolean deconnecte = clientController.menuClient();
+                if (deconnecte) {
+                    return Optional.empty(); // 🔥 retour au menu auth
+                }
             } else if (personne instanceof Gestionnaire gestionnaire) {
                 GestionnaireController gestionnaireController = new GestionnaireController(gestionnaire, authService);
-                gestionnaireController.menuGestionnaire();
+                boolean deconnecte = gestionnaireController.menuGestionnaire();
+                if (deconnecte) {
+                    return Optional.empty();
+                }
             }
-            return user;
         }
-
         return user;
     }
+
 
 }

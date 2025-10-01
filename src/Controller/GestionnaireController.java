@@ -20,7 +20,7 @@ public class GestionnaireController {
     }
 
 
-    public void menuGestionnaire() {
+    public boolean menuGestionnaire() {
         while (true) {
             System.out.println("\n===== MENU GESTIONNAIRE =====");
             System.out.println("1 - Voir mes infos");
@@ -33,7 +33,7 @@ public class GestionnaireController {
             switch (choix) {
                 case 0:
                     System.out.println("👋 Déconnexion...");
-                    return;
+                    return true;
                 case 1:
                     System.out.println(gestionnaire);
                     break;
